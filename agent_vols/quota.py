@@ -1,10 +1,61 @@
 import json
+import time
 from datetime import date
 from pathlib import Path
+
+import requests
 
 
 class QuotaExceeded(RuntimeError):
     pass
+
+
+class SerpApiAccountQuota:
+    """Quota réel lu chez SerpApi (account.json, gratuit, ne consomme pas de recherche).
+
+    Fonctionne sans disque : adapté à Vercel. Cache court pour limiter les appels.
+    """
+
+    ENDPOINT = "https://serpapi.com/account.json"
+    UNKNOWN = 999  # si SerpApi ne répond pas, on laisse passer : SerpApi refusera lui-même au-delà du quota
+
+    def __init__(self, api_key: str, ttl: float = 60, fetch=None, clock=None):
+        self._key = api_key
+        self._ttl = ttl
+        self._fetch = fetch or (lambda: requests.get(self.ENDPOINT, params={"api_key": api_key}, timeout=10).json())
+        self._clock = clock or time.monotonic
+        self._left: int | None = None
+        self._limit = 250
+        self._fetched_at = float("-inf")
+        self._consumed = 0
+
+    def _refresh(self) -> None:
+        if self._clock() - self._fetched_at < self._ttl:
+            return
+        try:
+            data = self._fetch()
+            self._left = int(data["total_searches_left"])
+            self._limit = int(data.get("searches_per_month", self._limit))
+            self._consumed = 0
+            self._fetched_at = self._clock()
+        except Exception:  # réseau, JSON, champ manquant : on garde la dernière valeur connue
+            pass
+
+    @property
+    def limit(self) -> int:
+        self._refresh()
+        return self._limit
+
+    def remaining(self) -> int:
+        self._refresh()
+        if self._left is None:
+            return self.UNKNOWN
+        return max(self._left - self._consumed, 0)
+
+    def consume(self) -> None:
+        if self.remaining() <= 0:
+            raise QuotaExceeded("Quota SerpApi épuisé pour ce mois-ci.")
+        self._consumed += 1
 
 
 class SerpApiQuota:

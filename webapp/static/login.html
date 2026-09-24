@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion — Départs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="/static/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#15161a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Départs">
+</head>
+<body class="login-body">
+  <main class="login">
+    <form id="login-form" class="gate" autocomplete="on">
+      <div class="gate-band"><span>Contrôle d'embarquement</span><span class="tag">Privé</span></div>
+      <h1 class="gate-title">Départs</h1>
+      <p class="gate-sub">Ton agent de recherche de vols. Présente ton mot de passe.</p>
+      <label for="password" class="gate-label">Mot de passe</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required autofocus>
+      <button type="submit" class="btn-board" id="login-btn">Passer le contrôle <span aria-hidden="true">→</span></button>
+      <p id="login-msg" class="gate-msg" role="alert"></p>
+    </form>
+  </main>
+  <script type="module" src="/static/login.js"></script>
+</body>
+</html>

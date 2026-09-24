@@ -244,7 +244,7 @@ const rerankPodium = debounce(async (list) => {
     return;
   }
   try {
-    const ranking = await api.rank(list.map((o) => o.id), state.results.budget);
+    const ranking = await api.rank(list, state.results.budget);
     state.results.ranking = ranking;
     renderPodium($("podium"), ranking, state.byId, { destLabel: state.destLabel });
     renderTable(filtered());
@@ -309,6 +309,11 @@ async function init() {
     },
   });
   showQuota(state.config.quota_remaining);
+  if (state.config.auth) {
+    $("logout").hidden = false;
+    $("logout").addEventListener("click", async () => { await api.logout(); window.location.href = "/login"; });
+  }
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});
   if (state.config.demo) message("Mode démo : les résultats rejouent une recherche enregistrée, sans quota.");
   else if (!state.config.has_live_key) message("Clé SerpApi absente : ajoute SERPAPI_KEY dans .env", { error: true });
 

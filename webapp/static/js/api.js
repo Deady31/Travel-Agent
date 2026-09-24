@@ -1,4 +1,4 @@
-// Appels au serveur local, avec messages d'erreur lisibles.
+// Appels au serveur, avec messages d'erreur lisibles et retour à l'écran de connexion si la session expire.
 
 async function call(path, body) {
   let resp;
@@ -9,7 +9,11 @@ async function call(path, body) {
       body: JSON.stringify(body),
     });
   } catch {
-    throw new Error("Serveur injoignable. Est-ce que l'app tourne toujours ?");
+    throw new Error("Serveur injoignable. Vérifie ta connexion.");
+  }
+  if (resp.status === 401 && path !== "/api/login") {
+    window.location.href = "/login";
+    throw new Error("Connexion requise.");
   }
   const data = await resp.json().catch(() => ({}));
   if (!resp.ok) {
@@ -25,4 +29,6 @@ export const getConfig = () => call("/api/config");
 export const parseCommand = (text) => call("/api/parse", { text });
 export const places = (term) => call(`/api/places?q=${encodeURIComponent(term)}`);
 export const search = (params) => call("/api/search", params);
-export const rank = (offerIds, budget) => call("/api/rank", { offer_ids: offerIds, budget_eur: budget });
+export const rank = (offers, budget) => call("/api/rank", { offers, budget_eur: budget });
+export const login = (password) => call("/api/login", { password });
+export const logout = () => call("/api/logout", {});

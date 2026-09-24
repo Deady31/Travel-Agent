@@ -1,0 +1,14 @@
+[project]
+name = "agent-vols"
+version = "1.1.0"
+description = "Agent perso de recherche de vols : app « Départs » (FastAPI) et serveur MCP."
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32",
+    "python-dotenv>=1.0",
+    "fastapi>=0.115",
+]
+
+[tool.vercel]
+# Point d'entrée de l'app web (sinon Vercel pourrait prendre server.py, le serveur MCP).
+entrypoint = "webapp.app:app"

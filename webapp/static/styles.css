@@ -363,6 +363,33 @@ main { padding: 0 var(--gutter) 48px; max-width: 1320px; margin: 0 auto; }
 
 .foot { padding: 24px var(--gutter) 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; max-width: 1320px; margin: 0 auto; }
 
+.foot .btn-link { margin-top: 8px; }
+
+/* ---------- Écran de connexion ---------- */
+.login-body { display: grid; min-height: 100vh; }
+.login { display: grid; place-items: center; padding: 24px var(--gutter); max-width: none; }
+.gate {
+  width: min(420px, 100%);
+  display: grid;
+  gap: 10px;
+  padding: 0 24px 26px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  transform: rotate(-0.6deg);
+  animation: print 520ms var(--ease) both;
+}
+.gate-band { display: flex; justify-content: space-between; margin: 0 -24px 8px; padding: 9px 24px; background: var(--ink); color: var(--paper); border-radius: 8px 8px 0 0; font: 600 13px/1 var(--cond); letter-spacing: 0.18em; text-transform: uppercase; }
+.gate-band .tag { color: var(--amber); }
+.gate-title { margin: 0; font: 700 56px/0.9 var(--cond); text-transform: uppercase; letter-spacing: 0.02em; }
+.gate-sub { margin: 0 0 8px; color: var(--ink-soft); font-size: 13px; }
+.gate-label { font: 600 12px/1 var(--cond); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+.gate input { padding: 10px 4px; background: transparent; border: 0; border-bottom: 2px solid var(--ink); color: var(--ink); font-size: 18px; color-scheme: light; }
+.gate input:focus { outline: none; border-bottom-color: var(--blue-ink); }
+.gate .btn-board { justify-content: center; margin-top: 8px; }
+.gate-msg { min-height: 1.4em; margin: 0; color: var(--stamp); font-size: 13px; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1080px) {
   .podium { grid-template-columns: minmax(0, 1fr); max-width: 560px; }

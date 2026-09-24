@@ -1,6 +1,42 @@
 import pytest
 
-from agent_vols.quota import QuotaExceeded, SerpApiQuota
+from agent_vols.quota import QuotaExceeded, SerpApiAccountQuota, SerpApiQuota
+
+
+class Clock:
+    def __init__(self):
+        self.t = 0.0
+
+    def __call__(self):
+        return self.t
+
+
+def test_account_quota_reads_serpapi_and_counts_locally():
+    calls = []
+    clock = Clock()
+
+    def fetch():
+        calls.append(1)
+        return {"total_searches_left": 2, "searches_per_month": 250}
+
+    q = SerpApiAccountQuota("k", ttl=60, fetch=fetch, clock=clock)
+    assert q.remaining() == 2 and q.limit == 250
+    q.consume()
+    q.consume()
+    with pytest.raises(QuotaExceeded):
+        q.consume()
+    assert len(calls) == 1  # cache
+    clock.t = 61
+    assert q.remaining() == 2 and len(calls) == 2
+
+
+def test_account_quota_survives_serpapi_outage():
+    def boom():
+        raise ConnectionError()
+
+    q = SerpApiAccountQuota("k", fetch=boom, clock=Clock())
+    assert q.remaining() == SerpApiAccountQuota.UNKNOWN
+    q.consume()  # ne bloque pas : SerpApi refusera lui-même au-delà du quota
 
 
 def test_counts_calls_per_month(tmp_path):

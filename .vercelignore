@@ -1,0 +1,15 @@
+.venv
+.env
+logs
+data
+docs
+scripts
+tests
+.claude
+.pytest_cache
+.coverage
+PLAN.md
+server.py
+run.py
+start.bat
+.mcp.json

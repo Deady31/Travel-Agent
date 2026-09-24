@@ -26,7 +26,8 @@ def client(monkeypatch, tmp_path):
     monkeypatch.setattr(web, "QUOTA", quota)
     monkeypatch.setattr(web, "SERPAPI_KEY", "secret-xyz")
     monkeypatch.setattr(web, "run_search", offline_search)
-    web._offers.clear()
+    monkeypatch.delenv("APP_PASSWORD", raising=False)
+    monkeypatch.delenv("VERCEL", raising=False)
     return TestClient(web.app)
 
 
@@ -100,8 +101,8 @@ def test_search_then_rank(client):
     assert len(data["offers"]) == 9
     assert data["quota_remaining"] == 98
     assert "offers_objects" not in data
-    ids = [o["id"] for o in data["offers"] if o["stops"] <= 1]
-    ranked = client.post("/api/rank", json={"offer_ids": ids, "budget_eur": 600}).json()
+    kept = [o for o in data["offers"] if o["stops"] <= 1]
+    ranked = client.post("/api/rank", json={"offers": kept, "budget_eur": 600}).json()
     assert ranked["within_budget"] is True
     assert ranked["cheapest"]["price_eur"] == min(o["price_eur"] for o in data["offers"] if o["stops"] <= 1)
 
@@ -118,8 +119,11 @@ def test_search_rejects_bad_input(client, override):
     assert client.post("/api/search", json=body(**override)).status_code in (400, 422)
 
 
-def test_rank_unknown_ids(client):
-    assert client.post("/api/rank", json={"offer_ids": ["nope"]}).status_code == 404
+def test_rank_rejects_tampered_offers(client):
+    data = client.post("/api/search", json=body()).json()
+    bad = {**data["offers"][0], "origin": "<script>"}
+    assert client.post("/api/rank", json={"offers": [bad]}).status_code == 422
+    assert client.post("/api/rank", json={"offers": []}).json()["cheapest"] is None
 
 
 def test_raw_log_scrubs_secrets(monkeypatch, tmp_path):

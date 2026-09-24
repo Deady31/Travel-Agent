@@ -4,7 +4,7 @@ cd /d "%~dp0"
 if not exist ".venv\Scripts\python.exe" (
   echo Premiere installation...
   python -m venv .venv || goto :error
-  ".venv\Scripts\python.exe" -m pip install -q -r requirements.txt || goto :error
+  ".venv\Scripts\python.exe" -m pip install -q -r requirements-dev.txt || goto :error
 )
 if not exist ".env" (
   echo Pas de fichier .env : lancement en mode demo. Copie .env.example en .env pour les vraies recherches.
