@@ -23,5 +23,6 @@ async function call(path, body) {
 
 export const getConfig = () => call("/api/config");
 export const parseCommand = (text) => call("/api/parse", { text });
+export const places = (term) => call(`/api/places?q=${encodeURIComponent(term)}`);
 export const search = (params) => call("/api/search", params);
 export const rank = (offerIds, budget) => call("/api/rank", { offer_ids: offerIds, budget_eur: budget });

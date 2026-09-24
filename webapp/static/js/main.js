@@ -1,5 +1,6 @@
 import * as api from "./api.js";
 import { debounce, fmtDuration, fmtPrice, h, hourOf } from "./dom.js";
+import { createDestinationPicker } from "./dest.js";
 import { flapTo } from "./flap.js";
 import {
   renderChecks, renderHints, renderInsights, renderPodium, renderRows, renderWarnings,
@@ -11,6 +12,7 @@ const EXAMPLES = [
   "lisbonne du 12 au 16 novembre",
   "porto le 14/11 flexible 3 jours direct",
   "toscane début décembre une semaine",
+  "cancun en février 10 jours soute",
 ];
 const MISSING_LABELS = {
   destination: "destination", destination_choice: "précise la destination", period: "période", stay: "durée du séjour",
@@ -19,7 +21,9 @@ const LOADING = ["Consultation du cache", "Choix des meilleures dates", "Vérifi
 
 const state = {
   config: null,
+  picker: null,
   destLabel: "",
+  destIata: [],
   results: null,
   byId: new Map(),
   sort: "price",
@@ -65,8 +69,9 @@ function setRadio(name, value) {
 
 function setDestination(label, iata) {
   state.destLabel = label || "";
-  $("f-dest-label").value = label || "Destination ?";
-  $("f-dest-iata").value = (iata || []).join(",");
+  state.destIata = iata || [];
+  $("f-dest-label").textContent = label || "Destination ?";
+  $("f-dest-codes").textContent = state.destIata.join(" · ");
   $("dest-choices").hidden = true;
 }
 
@@ -76,6 +81,12 @@ function fillCheckin(req) {
     $("dest-choices").hidden = false;
     $("dest-choices").replaceChildren(...req.destination_choices.map((c) =>
       h("button", { type: "button", onclick: () => setDestination(c.label, c.iata) }, c.label)));
+  }
+  if (req.destination_suggestions?.length && !req.destination_iata.length) {
+    state.picker.suggest(req.destination_suggestions, req.destination_query);
+  } else {
+    state.picker.close();
+    $("f-dest-search").value = "";
   }
   $("f-from").value = req.depart_from || "";
   $("f-to").value = req.depart_to || "";
@@ -96,9 +107,11 @@ async function onCommand(event) {
   try {
     const req = await api.parseCommand(text);
     fillCheckin(req);
-    if (req.missing.length) {
+    if (req.destination_suggestions?.length && !req.destination_iata.length) {
+      message(`« ${req.destination_query} » : choisis la bonne destination dans la liste.`);
+    } else if (req.missing.length) {
       message(`Information manquante : ${req.missing.map((m) => MISSING_LABELS[m] || m).join(", ")}`);
-      const focus = { destination: "f-dest-iata", period: "f-from", stay: "f-stay-min" }[req.missing[0]];
+      const focus = { destination: "f-dest-search", period: "f-from", stay: "f-stay-min" }[req.missing[0]];
       if (focus) $(focus).focus();
     } else {
       message("Fiche prête. Vérifie et embarque.");
@@ -111,10 +124,10 @@ async function onCommand(event) {
 
 function readCheckin() {
   const num = (id) => ($(id).value === "" ? null : Number($(id).value));
-  const iata = $("f-dest-iata").value.toUpperCase().split(",").map((s) => s.trim()).filter(Boolean);
+  const iata = state.destIata;
   const origins = [...document.querySelectorAll('input[name="origin"]:checked')].map((i) => i.value);
   const errors = [];
-  if (!iata.length || iata.some((c) => !/^[A-Z]{3}$/.test(c))) errors.push("code(s) IATA de destination");
+  if (!iata.length || iata.some((c) => !/^[A-Z]{3}$/.test(c))) errors.push("destination (cherche-la dans la fiche)");
   if (!$("f-from").value || !$("f-to").value) errors.push("période de départ");
   if (!num("f-stay-min") || !num("f-stay-max")) errors.push("durée du séjour");
   if (!origins.length) errors.push("au moins un aéroport de départ");
@@ -287,6 +300,14 @@ async function init() {
     return;
   }
   renderOrigins(state.config.origins);
+  state.picker = createDestinationPicker({
+    input: $("f-dest-search"),
+    list: $("dest-list"),
+    onPick: (place) => {
+      setDestination(place.label, place.iata);
+      message(`Destination : ${place.label} (${place.iata.join(", ")}).`);
+    },
+  });
   showQuota(state.config.quota_remaining);
   if (state.config.demo) message("Mode démo : les résultats rejouent une recherche enregistrée, sans quota.");
   else if (!state.config.has_live_key) message("Clé SerpApi absente : ajoute SERPAPI_KEY dans .env", { error: true });

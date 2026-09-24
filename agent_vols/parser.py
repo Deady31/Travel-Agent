@@ -13,6 +13,13 @@ MONTHS = {
     "octobre": 10, "oct": 10, "novembre": 11, "nov": 11, "decembre": 12, "dec": 12,
 }
 MONTH_RE = "|".join(sorted(MONTHS, key=len, reverse=True))
+# Mots à ignorer pour isoler une destination inconnue : « je veux aller à Cancun en cabine » -> « cancun »
+STOPWORDS = set("""
+je j veux voudrais aimerais aller partir partirais voyager a au aux en pour vers de d du des le la les l un une
+bagage bagages cabine soute valise sac main petit juste sans direct escale escales max maximum ar r aller retour
+adulte adultes personne personnes pers voyageur voyageurs vol vols billet billets flexible week end et avec
+jours jour j nuits nuit semaine semaines deux trois euros euro eur mois debut mi fin moins cher pas s il te plait
+""".split())
 DAY_UNIT = r"(?:j|jours?|nuits?)\b"
 FLEX_DAYS = 3
 
@@ -23,6 +30,7 @@ class TripRequest:
     destination_iata: tuple[str, ...] = ()
     destination_label: str | None = None
     destination_choices: tuple[dict, ...] = ()
+    destination_query: str | None = None
     depart_from: str | None = None
     depart_to: str | None = None
     stay_min: int | None = None
@@ -142,6 +150,8 @@ def parse_command(command: str, today: date | None = None) -> TripRequest:
 
     found = find_destination_in(command) or find_destination_in(text)
     dest_text, resolved = found if found else (None, {})
+    leftover = " ".join(w for w in re.findall(r"[a-z]+", text) if w not in STOPWORDS and len(w) > 1)
+    query = None if found else (leftover or None)
 
     missing = []
     if not resolved.get("iata") and not resolved.get("choices"):
@@ -158,6 +168,7 @@ def parse_command(command: str, today: date | None = None) -> TripRequest:
         destination_iata=tuple(resolved.get("iata", ())),
         destination_label=resolved.get("label"),
         destination_choices=tuple(resolved.get("choices", ())),
+        destination_query=query,
         depart_from=depart_from.isoformat() if depart_from else None,
         depart_to=depart_to.isoformat() if depart_to else None,
         stay_min=stay_min,

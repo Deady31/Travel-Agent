@@ -175,8 +175,27 @@ main { padding: 0 var(--gutter) 48px; max-width: 1320px; margin: 0 auto; }
 }
 .field input:focus { outline: none; border-bottom-color: var(--blue-ink); }
 .field input[type="number"] { max-width: 90px; }
-#f-dest-label { font: 700 30px/1.1 var(--cond); text-transform: uppercase; border-bottom: 0; padding-left: 0; }
-#f-dest-iata { max-width: 220px; letter-spacing: 0.12em; }
+.dest-picked { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; min-height: 38px; }
+.dest-label { font: 700 30px/1.1 var(--cond); text-transform: uppercase; }
+.dest-codes { font-size: 13px; letter-spacing: 0.12em; color: var(--ink-soft); }
+.combo { position: relative; max-width: 420px; margin-top: 4px; }
+.combo-list {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 4px);
+  max-height: 300px; overflow-y: auto;
+  margin: 0; padding: 4px; list-style: none;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r-sm);
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, 0.6);
+}
+.combo-list [role="option"] { display: grid; gap: 2px; padding: 8px 10px; border-radius: 2px; cursor: pointer; }
+.combo-list [role="option"][aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.combo-list [role="option"][aria-selected="true"] .opt-meta,
+.combo-list [role="option"][aria-selected="true"] .opt-country { color: var(--amber); }
+.opt-main { font: 600 17px/1.1 var(--cond); letter-spacing: 0.02em; }
+.opt-country { font-weight: 500; color: var(--ink-soft); }
+.opt-meta { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.04em; }
+.opt-empty { padding: 8px 10px; font-size: 12px; color: var(--ink-soft); }
 
 .seg { display: inline-flex; border: 1.5px solid var(--ink); border-radius: var(--r-sm); overflow: hidden; }
 .seg label { position: relative; cursor: pointer; }

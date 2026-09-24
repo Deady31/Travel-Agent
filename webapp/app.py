@@ -3,19 +3,22 @@
 import json
 import logging
 import os
+import re
 from datetime import date, datetime
 from pathlib import Path
 from typing import Annotated, Literal
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, StringConstraints
 
 from agent_vols import airports
+from agent_vols.airports import normalize
 from agent_vols.models import Offer
 from agent_vols.parser import parse_command
+from agent_vols.places import search_places
 from agent_vols.quota import SerpApiQuota
 from agent_vols.scoring import rank_offers
 from agent_vols.search import MAX_LIVE_CALLS, SearchParams, run_search
@@ -37,6 +40,15 @@ app = FastAPI(title="Agent Vols", docs_url=None, redoc_url=None)
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 _offers: dict[str, Offer] = {}
+
+
+@app.middleware("http")
+async def revalidate_assets(request, call_next):
+    """App locale : toujours revalider HTML/JS/CSS pour éviter une vieille version en cache après mise à jour."""
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
 
 Iata = Annotated[str, StringConstraints(pattern=r"^[A-Z]{3}$")]
 
@@ -83,9 +95,29 @@ def config() -> dict:
     }
 
 
+@app.get("/api/places")
+def places(q: str = Query(min_length=2, max_length=60)) -> dict:
+    results, online = search_places(q)
+    return {"results": results, "online": online}
+
+
 @app.post("/api/parse")
 def parse(body: ParseIn) -> dict:
-    return parse_command(body.text).to_dict()
+    """Lit la commande ; une ville hors liste locale est cherchée dans le monde entier."""
+    req = parse_command(body.text).to_dict()
+    req["destination_suggestions"] = []
+    if req["destination_query"] and not req["destination_iata"]:
+        results, _ = search_places(req["destination_query"])
+        query = normalize(req["destination_query"])
+        best = results[0] if results else None
+        # « bali » -> « Denpasar (Bali) » : le mot cherché doit apparaître en entier dans le nom.
+        if best and re.search(rf"\b{re.escape(query)}\b", normalize(best["label"])):
+            req["destination_iata"] = best["iata"]
+            req["destination_label"] = best["label"]
+            req["missing"] = [m for m in req["missing"] if m != "destination"]
+        else:
+            req["destination_suggestions"] = results[:5]
+    return req
 
 
 def _log_raw(raw: dict) -> None:

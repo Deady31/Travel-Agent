@@ -47,8 +47,16 @@
       <form id="search-form" class="checkin-grid" novalidate>
         <fieldset class="field field-dest">
           <legend>Destination</legend>
-          <input id="f-dest-label" type="text" readonly tabindex="-1" aria-label="Destination reconnue">
-          <input id="f-dest-iata" type="text" pattern="[A-Z]{3}(,[A-Z]{3}){0,5}" aria-label="Codes IATA destination" placeholder="NAP">
+          <div class="dest-picked">
+            <span id="f-dest-label" class="dest-label">?</span>
+            <span id="f-dest-codes" class="dest-codes"></span>
+          </div>
+          <div class="combo">
+            <input id="f-dest-search" type="text" role="combobox" autocomplete="off" maxlength="60"
+                   aria-expanded="false" aria-controls="dest-list" aria-autocomplete="list"
+                   aria-label="Chercher une destination" placeholder="Ville, pays, aéroport ou code : Cancún, Bali, KEF…">
+            <ul id="dest-list" class="combo-list" role="listbox" hidden></ul>
+          </div>
           <div id="dest-choices" class="choices" hidden></div>
         </fieldset>
         <fieldset class="field field-dates">

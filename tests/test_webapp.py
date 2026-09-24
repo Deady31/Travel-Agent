@@ -39,7 +39,9 @@ def body(**kw):
 
 def test_index_and_static(client):
     assert "Départs" in client.get("/").text
-    assert client.get("/static/js/main.js").status_code == 200
+    js = client.get("/static/js/main.js")
+    assert js.status_code == 200
+    assert js.headers["cache-control"] == "no-cache"
 
 
 def test_config(client):
@@ -53,6 +55,38 @@ def test_parse(client):
     data = client.post("/api/parse", json={"text": "naples fin oct 4-5j 150€"}).json()
     assert data["destination_iata"] == ["NAP"]
     assert data["budget_eur"] == 150
+
+
+CUN = {"kind": "city", "label": "Cancún", "country": "Mexique", "iata": ["CUN"], "code": "CUN"}
+
+
+def test_places_endpoint(client, monkeypatch):
+    monkeypatch.setattr(web, "search_places", lambda q: ([CUN], True))
+    data = client.get("/api/places", params={"q": "cancun"}).json()
+    assert data["results"][0]["iata"] == ["CUN"]
+    assert client.get("/api/places", params={"q": "x"}).status_code == 422
+
+
+def test_parse_resolves_unknown_city_worldwide(client, monkeypatch):
+    monkeypatch.setattr(web, "search_places", lambda q: ([CUN], True))
+    data = client.post("/api/parse", json={"text": "cancun en février 10 jours"}).json()
+    assert data["destination_iata"] == ["CUN"]
+    assert "destination" not in data["missing"]
+
+
+def test_parse_accepts_word_inside_label(client, monkeypatch):
+    bali = {"kind": "city", "label": "Denpasar (Bali)", "country": "Indonésie", "iata": ["DPS"], "code": "DPS"}
+    monkeypatch.setattr(web, "search_places", lambda q: ([bali], True))
+    data = client.post("/api/parse", json={"text": "bali en mars 2 semaines"}).json()
+    assert data["destination_iata"] == ["DPS"]
+
+
+def test_parse_offers_suggestions_when_unsure(client, monkeypatch):
+    other = {**CUN, "label": "Canton", "iata": ["CAN"]}
+    monkeypatch.setattr(web, "search_places", lambda q: ([other, CUN], True))
+    data = client.post("/api/parse", json={"text": "cancoon en février 10 jours"}).json()
+    assert data["destination_iata"] == []
+    assert len(data["destination_suggestions"]) == 2
 
 
 def test_parse_rejects_oversized_input(client):

@@ -25,6 +25,10 @@ def origins() -> dict[str, dict]:
     return _data()["origins"]
 
 
+def destination_names() -> list[str]:
+    return sorted(_data()["destinations"])
+
+
 def access_minutes() -> dict[str, int]:
     return {code: info["access_min"] for code, info in origins().items()}
 

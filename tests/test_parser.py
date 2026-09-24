@@ -75,7 +75,19 @@ def test_missing_fields_reported():
 
 
 def test_unknown_destination():
-    assert "destination" in p("Atlantide en novembre 3 jours").missing
+    r = p("Atlantide en novembre 3 jours")
+    assert "destination" in r.missing
+    assert r.destination_query == "atlantide"
+
+
+def test_unknown_city_becomes_query():
+    r = p("Je veux aller à Cancún en février, 10 jours, max 900€ avec valise en soute")
+    assert r.destination_query == "cancun"
+    assert r.stay_min == 10 and r.budget_eur == 900 and r.bag == "checked"
+
+
+def test_known_city_has_no_query():
+    assert p("naples fin oct 4-5j").destination_query is None
 
 
 def test_ambiguous_destination():
