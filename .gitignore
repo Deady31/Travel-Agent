@@ -1,0 +1,9 @@
+.env
+__pycache__/
+.venv/
+.pytest_cache/
+.coverage
+logs/
+data/
+*.sqlite
+.claude/settings.local.json

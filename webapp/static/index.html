@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Départs — Agent Vols</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2315161A'/%3E%3Cpath d='M6 19l20-7-3 9-6-2-3 5-1-6z' fill='%23F2B632'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="board-top" aria-label="Tableau des départs">
+    <div class="board-title">
+      <span class="flap-line" data-flap="DÉPARTS">DÉPARTS</span>
+      <span class="board-sub">Departures · Toulouse &amp; alentours</span>
+    </div>
+    <div class="board-clock" aria-hidden="true"><span id="clock" class="flap-line">--:--</span></div>
+    <div class="board-quota" title="Recherches live SerpApi restantes ce mois-ci">
+      <span class="board-sub">Vérifications live</span>
+      <span class="flap-line" id="quota">---</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="kiosk" aria-labelledby="kiosk-title">
+      <h1 id="kiosk-title" class="visually-hidden">Rechercher un vol</h1>
+      <form id="command-form" class="command" autocomplete="off">
+        <label for="command" class="prompt">TLS&nbsp;›</label>
+        <input id="command" name="command" type="text" maxlength="300"
+               placeholder="naples fin oct 4-5j 150€ cabine" aria-describedby="command-help" autofocus>
+        <button type="submit" class="btn-kiosk">Lire</button>
+      </form>
+      <p id="command-help" class="command-help">
+        Écris comme tu parles : destination, période, durée, budget.
+        <span class="examples" id="examples"></span>
+      </p>
+      <p id="board-message" class="board-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="checkin" class="checkin" hidden aria-labelledby="checkin-title">
+      <div class="checkin-head">
+        <h2 id="checkin-title">Fiche d'enregistrement</h2>
+        <span class="checkin-hint">Vérifie, corrige, puis embarque.</span>
+      </div>
+      <form id="search-form" class="checkin-grid" novalidate>
+        <fieldset class="field field-dest">
+          <legend>Destination</legend>
+          <input id="f-dest-label" type="text" readonly tabindex="-1" aria-label="Destination reconnue">
+          <input id="f-dest-iata" type="text" pattern="[A-Z]{3}(,[A-Z]{3}){0,5}" aria-label="Codes IATA destination" placeholder="NAP">
+          <div id="dest-choices" class="choices" hidden></div>
+        </fieldset>
+        <fieldset class="field field-dates">
+          <legend>Départ entre</legend>
+          <div class="row"><input id="f-from" type="date" aria-label="Premier jour de départ"><span>et</span><input id="f-to" type="date" aria-label="Dernier jour de départ"></div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Séjour</legend>
+          <div class="row"><input id="f-stay-min" type="number" min="1" max="60" aria-label="Durée minimale"><span>à</span><input id="f-stay-max" type="number" min="1" max="60" aria-label="Durée maximale"><span>jours</span></div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Budget A/R</legend>
+          <div class="row"><input id="f-budget" type="number" min="0" max="20000" step="10" placeholder="illimité" aria-label="Budget maximum"><span>€ / pers.</span></div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Voyageurs</legend>
+          <div class="row"><input id="f-adults" type="number" min="1" max="9" value="1" aria-label="Nombre d'adultes"><span>adulte(s)</span></div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Bagage</legend>
+          <div class="seg" role="radiogroup" id="f-bag">
+            <label><input type="radio" name="bag" value="none"><span>Sac seul</span></label>
+            <label><input type="radio" name="bag" value="cabin" checked><span>Cabine</span></label>
+            <label><input type="radio" name="bag" value="checked"><span>Soute</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field">
+          <legend>Escales</legend>
+          <div class="seg" role="radiogroup" id="f-stops">
+            <label><input type="radio" name="stops" value="0"><span>Direct</span></label>
+            <label><input type="radio" name="stops" value="1" checked><span>1 max</span></label>
+            <label><input type="radio" name="stops" value="2"><span>2 max</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field field-origins">
+          <legend>Aéroports de départ</legend>
+          <div id="f-origins" class="origin-chips"></div>
+        </fieldset>
+        <div class="checkin-actions">
+          <p class="cost-note" id="cost-note"></p>
+          <button type="submit" class="btn-board" id="btn-search">Embarquer <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section id="results" class="results" hidden aria-labelledby="results-title">
+      <h2 id="results-title" class="visually-hidden">Résultats</h2>
+      <div id="insights" class="insights"></div>
+      <ul id="warnings" class="warnings"></ul>
+      <div id="podium" class="podium" aria-label="Top 3"></div>
+
+      <div class="results-body">
+        <aside class="controls" aria-labelledby="controls-title">
+          <h3 id="controls-title">Contrôle</h3>
+          <div class="ctrl">
+            <label for="c-price">Prix max <output id="c-price-out"></output></label>
+            <input id="c-price" type="range" min="0" max="1000" step="5">
+          </div>
+          <div class="ctrl">
+            <span class="ctrl-label">Escales</span>
+            <div class="seg seg-dark" id="c-stops">
+              <label><input type="radio" name="c-stops" value="0"><span>Direct</span></label>
+              <label><input type="radio" name="c-stops" value="1"><span>≤ 1</span></label>
+              <label><input type="radio" name="c-stops" value="9" checked><span>Toutes</span></label>
+            </div>
+          </div>
+          <div class="ctrl">
+            <label for="c-hour-min">Départ après <output id="c-hour-min-out"></output></label>
+            <input id="c-hour-min" type="range" min="0" max="23" step="1" value="0">
+            <label for="c-hour-max">Départ avant <output id="c-hour-max-out"></output></label>
+            <input id="c-hour-max" type="range" min="1" max="24" step="1" value="24">
+          </div>
+          <div class="ctrl">
+            <span class="ctrl-label">Aéroport de départ</span>
+            <div id="c-origins" class="checks"></div>
+          </div>
+          <div class="ctrl">
+            <span class="ctrl-label">Compagnies</span>
+            <div id="c-airlines" class="checks"></div>
+          </div>
+          <div class="ctrl">
+            <label class="toggle"><input id="c-bags" type="checkbox"><span>Masquer si supplément bagage</span></label>
+          </div>
+          <div class="ctrl-foot">
+            <span id="c-count" class="count"></span>
+            <button type="button" id="c-reset" class="btn-link">Réinitialiser</button>
+          </div>
+        </aside>
+
+        <div class="board" aria-labelledby="board-title">
+          <div class="board-head">
+            <h3 id="board-title">Tous les vols</h3>
+            <div class="sort" role="group" aria-label="Trier par">
+              <button type="button" data-sort="price" aria-pressed="true">Prix</button>
+              <button type="button" data-sort="door" aria-pressed="false">Durée</button>
+              <button type="button" data-sort="time" aria-pressed="false">Heure</button>
+            </div>
+          </div>
+          <div class="board-scroll">
+            <table class="flights">
+              <thead>
+                <tr><th>Heure</th><th>Vol</th><th>De</th><th>Vers</th><th>Dates</th><th>Esc.</th><th>Durée</th><th class="num">Prix</th><th>Remarque</th></tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <p id="empty" class="empty" hidden>Aucun vol ne passe les filtres. Élargis le prix ou les horaires.</p>
+        </div>
+      </div>
+
+      <section id="hints" class="hints" hidden aria-labelledby="hints-title">
+        <h3 id="hints-title">Pistes du cache <em>non vérifiées</em></h3>
+        <ul id="hints-list"></ul>
+      </section>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Prix live : Google Flights via SerpApi. Pistes : cache Aviasales. Chaque prix affiche sa source et son heure, rien n'est estimé.
+      Temps d'accès aux aéroports : estimations. Prix susceptibles d'évoluer, à vérifier au moment de réserver.</p>
+  </footer>
+
+  <script type="module" src="/static/js/main.js"></script>
+</body>
+</html>

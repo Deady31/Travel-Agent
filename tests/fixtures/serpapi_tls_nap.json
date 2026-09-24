@@ -1,0 +1,949 @@
+{
+  "search_metadata": {
+    "id": "redacted",
+    "status": "Success",
+    "json_endpoint": "redacted",
+    "markdown_endpoint": "redacted",
+    "created_at": "2026-09-24 07:38:08 UTC",
+    "processed_at": "2026-09-24 07:38:08 UTC",
+    "google_flights_url": "https://www.google.com/travel/flights?hl=fr&gl=fr&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTI4agcIARIDVExTcgcIARIDTkFQGh4SCjIwMjYtMTEtMDFqBwgBEgNOQVByBwgBEgNUTFNAAUgBcAGYAQE&tfu=EgIIAQ",
+    "raw_html_file": "redacted",
+    "prettify_html_file": "redacted",
+    "total_time_taken": 1.1
+  },
+  "search_parameters": {
+    "engine": "google_flights",
+    "hl": "fr",
+    "gl": "fr",
+    "type": "1",
+    "departure_id": "TLS",
+    "arrival_id": "NAP",
+    "outbound_date": "2026-10-28",
+    "return_date": "2026-11-01",
+    "currency": "EUR"
+  },
+  "best_flights": [
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 13:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport Franz-Josef-Strauss de Munich",
+            "id": "MUC",
+            "time": "2026-10-28 15:10"
+          },
+          "duration": 100,
+          "airplane": "Airbus A320neo",
+          "airline": "Lufthansa",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/LH.png",
+          "travel_class": "Economy",
+          "flight_number": "LH 2219",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 84 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport Franz-Josef-Strauss de Munich",
+            "id": "MUC",
+            "time": "2026-10-28 16:05"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 17:45"
+          },
+          "duration": 100,
+          "airplane": "Airbus A320neo",
+          "airline": "Lufthansa City Airlines",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/VL.png",
+          "travel_class": "Economy",
+          "flight_number": "VL 1878",
+          "ticket_also_sold_by": [
+            "Lufthansa"
+          ],
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 76 kg"
+          ]
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 55,
+          "name": "Aéroport Franz-Josef-Strauss de Munich",
+          "id": "MUC"
+        }
+      ],
+      "total_duration": 255,
+      "carbon_emissions": {
+        "this_flight": 161000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 56
+      },
+      "price": 554,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+      "extensions": [
+        "1 checked bag up to 23 kg included",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 11:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 13:05"
+          },
+          "duration": 95,
+          "airplane": "Airbus A321",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7405",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 81 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 18:55"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 21:10"
+          },
+          "duration": 135,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1578",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 350,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 580,
+      "carbon_emissions": {
+        "this_flight": 235000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 128
+      },
+      "price": 583,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 06:45"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Lyon-Saint Exupéry",
+            "id": "LYS",
+            "time": "2026-10-28 07:45"
+          },
+          "duration": 60,
+          "airplane": "Embraer 170",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 6021",
+          "legroom": "76 cm",
+          "extensions": [
+            "Average legroom (76 cm)",
+            "Carbon emissions estimate: 80 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Lyon-Saint Exupéry",
+            "id": "LYS",
+            "time": "2026-10-28 10:25"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 11:40"
+          },
+          "duration": 75,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7361",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 56 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 13:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 15:50"
+          },
+          "duration": 140,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1178",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 160,
+          "name": "Aéroport de Lyon-Saint Exupéry",
+          "id": "LYS"
+        },
+        {
+          "duration": 110,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 545,
+      "carbon_emissions": {
+        "this_flight": 291000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 183
+      },
+      "price": 616,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 14:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 16:05"
+          },
+          "duration": 95,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7409",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 75 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 18:55"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 21:10"
+          },
+          "duration": 135,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1578",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 170,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 400,
+      "carbon_emissions": {
+        "this_flight": 229000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 122
+      },
+      "price": 651,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 10:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 12:00"
+          },
+          "duration": 90,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7403",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 75 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 13:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 15:50"
+          },
+          "duration": 140,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1178",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 90,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 320,
+      "carbon_emissions": {
+        "this_flight": 229000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 122
+      },
+      "price": 725,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    }
+  ],
+  "other_flights": [
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 17:45"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 19:10"
+          },
+          "duration": 85,
+          "airplane": "Airbus A321",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7413",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 81 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 20:55"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Milan-Linate",
+            "id": "LIN",
+            "time": "2026-10-28 22:25"
+          },
+          "duration": 90,
+          "airplane": "Airbus A220-300 Passenger",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1732",
+          "legroom": "76 cm",
+          "extensions": [
+            "Average legroom (76 cm)",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 83 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Milan-Linate",
+            "id": "LIN",
+            "time": "2026-10-29 06:15"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-29 07:35"
+          },
+          "duration": 80,
+          "airplane": "Airbus A220-100 Passenger",
+          "airline": "ITA",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AZ.png",
+          "travel_class": "Economy",
+          "flight_number": "AZ 1285",
+          "ticket_also_sold_by": [
+            "Air France"
+          ],
+          "legroom": "76 cm",
+          "extensions": [
+            "Average legroom (76 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 88 kg"
+          ]
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 105,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        },
+        {
+          "duration": 470,
+          "name": "Aéroport de Milan-Linate",
+          "id": "LIN"
+        }
+      ],
+      "total_duration": 830,
+      "carbon_emissions": {
+        "this_flight": 253000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 146
+      },
+      "price": 552,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 14:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 16:05"
+          },
+          "duration": 95,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7409",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 75 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 17:50"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Milan-Linate",
+            "id": "LIN",
+            "time": "2026-10-28 19:20"
+          },
+          "duration": 90,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1312",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 77 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Milan-Linate",
+            "id": "LIN",
+            "time": "2026-10-28 21:20"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 22:45"
+          },
+          "duration": 85,
+          "airplane": "Airbus A319",
+          "airline": "ITA",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AZ.png",
+          "travel_class": "Economy",
+          "flight_number": "AZ 1297",
+          "ticket_also_sold_by": [
+            "Air France"
+          ],
+          "legroom": "76 cm",
+          "extensions": [
+            "Average legroom (76 cm)",
+            "Carbon emissions estimate: 83 kg"
+          ]
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 105,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        },
+        {
+          "duration": 120,
+          "name": "Aéroport de Milan-Linate",
+          "id": "LIN"
+        }
+      ],
+      "total_duration": 495,
+      "carbon_emissions": {
+        "this_flight": 237000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 130
+      },
+      "price": 646,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 06:05"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 07:40"
+          },
+          "duration": 95,
+          "airplane": "Airbus A320",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7419",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 75 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 13:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 15:50"
+          },
+          "duration": 140,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1178",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 350,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 585,
+      "carbon_emissions": {
+        "this_flight": 229000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 122
+      },
+      "price": 674,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Aéroport Toulouse-Blagnac",
+            "id": "TLS",
+            "time": "2026-10-28 07:00"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 08:40"
+          },
+          "duration": 100,
+          "airplane": "Airbus A321",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 7421",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Wi-Fi for a fee",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 81 kg"
+          ]
+        },
+        {
+          "departure_airport": {
+            "name": "Aéroport de Paris-Charles de Gaulle",
+            "id": "CDG",
+            "time": "2026-10-28 13:30"
+          },
+          "arrival_airport": {
+            "name": "Aéroport de Naples - Capodichino",
+            "id": "NAP",
+            "time": "2026-10-28 15:50"
+          },
+          "duration": 140,
+          "airplane": "Embraer 190",
+          "airline": "Air France",
+          "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+          "travel_class": "Economy",
+          "flight_number": "AF 1178",
+          "legroom": "74 cm",
+          "extensions": [
+            "Below average legroom (74 cm)",
+            "Free Wi-Fi",
+            "In-seat USB outlet",
+            "Carbon emissions estimate: 153 kg"
+          ],
+          "plane_and_crew_by": "HOP!"
+        }
+      ],
+      "layovers": [
+        {
+          "duration": 290,
+          "name": "Aéroport de Paris-Charles de Gaulle",
+          "id": "CDG"
+        }
+      ],
+      "total_duration": 530,
+      "carbon_emissions": {
+        "this_flight": 235000,
+        "typical_for_this_route": 103000,
+        "difference_percent": 128
+      },
+      "price": 692,
+      "type": "Round trip",
+      "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AF.png",
+      "extensions": [
+        "Checked baggage for a fee",
+        "Full refund for cancellations",
+        "Free change, possible fare difference",
+        "Bag and fare conditions depend on the return flight"
+      ],
+      "departure_token": "redacted"
+    }
+  ],
+  "price_insights": {
+    "lowest_price": 552,
+    "price_level": "high",
+    "typical_price_range": [
+      180,
+      375
+    ],
+    "price_history": [
+      [
+        1788991200,
+        680
+      ],
+      [
+        1789077600,
+        568
+      ],
+      [
+        1789164000,
+        568
+      ],
+      [
+        1789250400,
+        523
+      ],
+      [
+        1789336800,
+        515
+      ],
+      [
+        1789423200,
+        485
+      ],
+      [
+        1789509600,
+        485
+      ],
+      [
+        1789596000,
+        485
+      ],
+      [
+        1789682400,
+        485
+      ],
+      [
+        1789768800,
+        523
+      ],
+      [
+        1789855200,
+        441
+      ],
+      [
+        1789941600,
+        552
+      ],
+      [
+        1790028000,
+        485
+      ],
+      [
+        1790114400,
+        485
+      ],
+      [
+        1790200800,
+        552
+      ]
+    ]
+  },
+  "airports": [
+    {
+      "departure": [
+        {
+          "airport": {
+            "id": "TLS",
+            "name": "Aéroport Toulouse-Blagnac"
+          },
+          "city": "Toulouse",
+          "country": "France",
+          "country_code": "FR",
+          "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS-JBb46aISIGJGcm72QlTGRVFqYK6BssXD2MIWtzdlVuAvYO-7HvpSUobpPuWQtIMHOpRtSMk5UgbJQ",
+          "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT4-dRP2canwEgh2x-IPNpEKSBKqlR-Vmx9aUy2gIHi5TcurdMXEw0CEuKfGYzyOk1R23IHYXqjYOHjEAfNcCw6bSOTiksOmdmpubb6t1U"
+        }
+      ],
+      "arrival": [
+        {
+          "airport": {
+            "id": "NAP",
+            "name": "Aéroport de Naples - Capodichino"
+          },
+          "city": "Naples",
+          "country": "Italie",
+          "country_code": "IT",
+          "image": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTzjXLpOCnZNdPsKZ1ZOiIFUi27f0bbvjb33YY5BQIfEPRLyeehfzV5iQK2JSSYpSB-DwJxP_vOFrfXP12V_i4uYAVHXSYmsgpOA3zqzz4",
+          "thumbnail": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSEYuT_pV_avHwLdv-x4HzSSKg2aOz4_eFPWeZFdBzdv06lmxUccHyR8NuKYUmlVkqm_CtDPI6iIGa-ImlLSMoEOF1uDOCwQwmMoHW2S2s"
+        }
+      ]
+    },
+    {
+      "departure": [
+        {
+          "airport": {
+            "id": "NAP",
+            "name": "Aéroport de Naples - Capodichino"
+          },
+          "city": "Naples",
+          "country": "Italie",
+          "country_code": "IT",
+          "image": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTzjXLpOCnZNdPsKZ1ZOiIFUi27f0bbvjb33YY5BQIfEPRLyeehfzV5iQK2JSSYpSB-DwJxP_vOFrfXP12V_i4uYAVHXSYmsgpOA3zqzz4",
+          "thumbnail": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSEYuT_pV_avHwLdv-x4HzSSKg2aOz4_eFPWeZFdBzdv06lmxUccHyR8NuKYUmlVkqm_CtDPI6iIGa-ImlLSMoEOF1uDOCwQwmMoHW2S2s"
+        }
+      ],
+      "arrival": [
+        {
+          "airport": {
+            "id": "TLS",
+            "name": "Aéroport Toulouse-Blagnac"
+          },
+          "city": "Toulouse",
+          "country": "France",
+          "country_code": "FR",
+          "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTS-JBb46aISIGJGcm72QlTGRVFqYK6BssXD2MIWtzdlVuAvYO-7HvpSUobpPuWQtIMHOpRtSMk5UgbJQ",
+          "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT4-dRP2canwEgh2x-IPNpEKSBKqlR-Vmx9aUy2gIHi5TcurdMXEw0CEuKfGYzyOk1R23IHYXqjYOHjEAfNcCw6bSOTiksOmdmpubb6t1U"
+        }
+      ]
+    }
+  ]
+}
